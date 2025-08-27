@@ -40,6 +40,15 @@ export default function ArticlesShow({ article }: Props) {
         }
     };
 
+    const getStatusText = (status: string) => {
+        switch (status) {
+            case 'published': return 'Dipublikasi';
+            case 'draft': return 'Draf';
+            case 'archived': return 'Diarsipkan';
+            default: return status;
+        }
+    };
+
     const getSeoScoreColor = (score: number) => {
         if (score >= 80) return 'text-green-600 bg-green-100';
         if (score >= 60) return 'text-yellow-600 bg-yellow-100';
@@ -47,7 +56,7 @@ export default function ArticlesShow({ article }: Props) {
     };
 
     const handleDelete = () => {
-        if (confirm('Are you sure you want to delete this article?')) {
+        if (confirm('Apakah Anda yakin ingin menghapus artikel ini?')) {
             router.delete(route('articles.destroy', article.id));
         }
     };
@@ -59,7 +68,7 @@ export default function ArticlesShow({ article }: Props) {
 
     return (
         <AppShell>
-            <Head title={`${article.title} - SEO Content Generator`} />
+            <Head title={`${article.title} - Generator Konten SEO`} />
             
             <div className="container mx-auto p-6 max-w-6xl">
                 {/* Header */}
@@ -70,7 +79,7 @@ export default function ArticlesShow({ article }: Props) {
                                 href={route('articles.index')}
                                 className="text-blue-600 hover:text-blue-800 text-sm flex items-center gap-1"
                             >
-                                ← Back to Articles
+                                ← Kembali ke Artikel
                             </Link>
                         </div>
                         
@@ -80,22 +89,22 @@ export default function ArticlesShow({ article }: Props) {
                         
                         <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(article.status)}`}>
-                                {article.status}
+                                {getStatusText(article.status)}
                             </span>
                             
                             {article.topic && (
                                 <span className="flex items-center gap-1">
-                                    🎯 Topic: {article.topic}
+                                    🎯 Topik: {article.topic}
                                 </span>
                             )}
                             
                             <span>
-                                📅 Created {new Date(article.created_at).toLocaleDateString()}
+                                📅 Dibuat {new Date(article.created_at).toLocaleDateString('id-ID')}
                             </span>
                             
                             {article.updated_at !== article.created_at && (
                                 <span>
-                                    ✏️ Updated {new Date(article.updated_at).toLocaleDateString()}
+                                    ✏️ Diperbarui {new Date(article.updated_at).toLocaleDateString('id-ID')}
                                 </span>
                             )}
                         </div>
@@ -104,14 +113,14 @@ export default function ArticlesShow({ article }: Props) {
                     <div className="flex items-center gap-3 ml-6">
                         <Link href={route('articles.edit', article.id)}>
                             <Button className="bg-blue-600 hover:bg-blue-700">
-                                ✏️ Edit Article
+                                ✏️ Edit Artikel
                             </Button>
                         </Link>
                         <Button 
                             variant="destructive" 
                             onClick={handleDelete}
                         >
-                            🗑️ Delete
+                            🗑️ Hapus
                         </Button>
                     </div>
                 </div>
@@ -124,7 +133,7 @@ export default function ArticlesShow({ article }: Props) {
                             <CardHeader>
                                 <CardTitle className="flex items-center justify-between">
                                     <span className="flex items-center gap-2">
-                                        📊 SEO Analysis
+                                        📊 Analisis SEO
                                     </span>
                                     <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getSeoScoreColor(article.seo_score)}`}>
                                         {article.seo_score}/100
@@ -148,7 +157,7 @@ export default function ArticlesShow({ article }: Props) {
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="text-gray-500">No SEO analysis available. Edit the article to generate analysis.</p>
+                                    <p className="text-gray-500">Analisis SEO tidak tersedia. Edit artikel untuk membuat analisis.</p>
                                 )}
                             </CardContent>
                         </Card>
@@ -156,7 +165,7 @@ export default function ArticlesShow({ article }: Props) {
                         {/* Content */}
                         <Card>
                             <CardHeader>
-                                <CardTitle>📝 Article Content</CardTitle>
+                                <CardTitle>📝 Konten Artikel</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 {article.content ? (
@@ -164,7 +173,7 @@ export default function ArticlesShow({ article }: Props) {
                                         <div dangerouslySetInnerHTML={{ __html: article.content }} />
                                     </div>
                                 ) : (
-                                    <p className="text-gray-500 italic">No content yet. Edit the article to add content.</p>
+                                    <p className="text-gray-500 italic">Belum ada konten. Edit artikel untuk menambah konten.</p>
                                 )}
                             </CardContent>
                         </Card>
@@ -184,18 +193,18 @@ export default function ArticlesShow({ article }: Props) {
                                             {article.meta_description}
                                         </p>
                                         <div className="flex items-center justify-between text-xs text-gray-500">
-                                            <span>{article.meta_description.length}/160 characters</span>
+                                            <span>{article.meta_description.length}/160 karakter</span>
                                             <Button 
                                                 size="sm" 
                                                 variant="outline"
                                                 onClick={() => copyToClipboard(article.meta_description)}
                                             >
-                                                📋 Copy
+                                                📋 Salin
                                             </Button>
                                         </div>
                                     </div>
                                 ) : (
-                                    <p className="text-gray-500 text-sm">No meta description yet.</p>
+                                    <p className="text-gray-500 text-sm">Belum ada meta description.</p>
                                 )}
                             </CardContent>
                         </Card>
@@ -205,13 +214,13 @@ export default function ArticlesShow({ article }: Props) {
                             <Card>
                                 <CardHeader>
                                     <CardTitle className="text-lg flex items-center justify-between">
-                                        🏷️ SEO Tags
+                                        🏷️ Tag SEO
                                         <Button 
                                             size="sm" 
                                             variant="outline"
                                             onClick={() => copyToClipboard(article.seo_tags?.join(', ') || '')}
                                         >
-                                            📋 Copy
+                                            📋 Salin
                                         </Button>
                                     </CardTitle>
                                 </CardHeader>
@@ -238,7 +247,7 @@ export default function ArticlesShow({ article }: Props) {
                                             variant="outline"
                                             onClick={() => copyToClipboard(JSON.stringify(article.schema_markup, null, 2))}
                                         >
-                                            📋 Copy JSON-LD
+                                            📋 Salin JSON-LD
                                         </Button>
                                     </CardTitle>
                                 </CardHeader>
@@ -254,7 +263,7 @@ export default function ArticlesShow({ article }: Props) {
                         {article.keywords && article.keywords.length > 0 && (
                             <Card>
                                 <CardHeader>
-                                    <CardTitle className="text-lg">🔍 Keywords</CardTitle>
+                                    <CardTitle className="text-lg">🔍 Kata Kunci</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <div className="space-y-3">
@@ -262,7 +271,7 @@ export default function ArticlesShow({ article }: Props) {
                                             <div key={index} className="border-b pb-2 last:border-b-0">
                                                 <p className="font-medium text-sm">{keyword.keyword}</p>
                                                 <p className="text-xs text-gray-500">
-                                                    {keyword.search_volume?.toLocaleString()} searches • {keyword.competition} competition
+                                                    {keyword.search_volume?.toLocaleString()} pencarian • kompetisi {keyword.competition === 'low' ? 'rendah' : keyword.competition === 'medium' ? 'sedang' : 'tinggi'}
                                                 </p>
                                             </div>
                                         ))}
@@ -274,17 +283,17 @@ export default function ArticlesShow({ article }: Props) {
                         {/* Actions */}
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-lg">🚀 Export Options</CardTitle>
+                                <CardTitle className="text-lg">🚀 Opsi Ekspor</CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-3">
                                 <Button className="w-full justify-start" variant="outline">
-                                    🌐 Generate Landing Page
+                                    🌐 Buat Landing Page
                                 </Button>
                                 <Button className="w-full justify-start" variant="outline">
-                                    📄 Export as HTML
+                                    📄 Ekspor sebagai HTML
                                 </Button>
                                 <Button className="w-full justify-start" variant="outline">
-                                    📋 Copy WordPress Tags
+                                    📋 Salin Tag WordPress
                                 </Button>
                             </CardContent>
                         </Card>

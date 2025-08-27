@@ -27,17 +27,37 @@ export default function SeoKeywords({ keywords, topic }: Props) {
         }
     };
 
+    const getCompetitionText = (competition: string) => {
+        switch (competition) {
+            case 'low': return 'rendah';
+            case 'medium': return 'sedang';
+            case 'high': return 'tinggi';
+            default: return competition;
+        }
+    };
+
+    const getContentTypeText = (contentType: string) => {
+        switch (contentType) {
+            case 'blog post': return 'artikel blog';
+            case 'tutorial': return 'tutorial';
+            case 'guide': return 'panduan';
+            case 'list': return 'daftar';
+            case 'review': return 'ulasan';
+            default: return contentType;
+        }
+    };
+
     return (
         <AppShell>
-            <Head title={`Keywords for "${topic}" - SEO Content Generator`} />
+            <Head title={`Kata Kunci untuk "${topic}" - Generator Konten SEO`} />
             
             <div className="container mx-auto p-6 max-w-6xl">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                        Keyword Research Results
+                        Hasil Riset Kata Kunci
                     </h1>
                     <p className="text-gray-600">
-                        Found {keywords.length} keywords for: <strong>{topic}</strong>
+                        Ditemukan {keywords.length} kata kunci untuk: <strong>{topic}</strong>
                     </p>
                 </div>
 
@@ -49,16 +69,16 @@ export default function SeoKeywords({ keywords, topic }: Props) {
                             </CardHeader>
                             <CardContent>
                                 <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
-                                    <span>📊 {keyword.search_volume.toLocaleString()} searches/month</span>
+                                    <span>📊 {keyword.search_volume.toLocaleString()} pencarian/bulan</span>
                                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCompetitionColor(keyword.competition)}`}>
-                                        {keyword.competition} competition
+                                        kompetisi {getCompetitionText(keyword.competition)}
                                     </span>
-                                    <span>📄 {keyword.content_type}</span>
+                                    <span>📄 {getContentTypeText(keyword.content_type)}</span>
                                 </div>
                                 
                                 {keyword.lsi_keywords.length > 0 && (
                                     <div>
-                                        <h4 className="text-sm font-medium text-gray-700 mb-2">LSI Keywords:</h4>
+                                        <h4 className="text-sm font-medium text-gray-700 mb-2">Kata Kunci LSI:</h4>
                                         <div className="flex flex-wrap gap-2">
                                             {keyword.lsi_keywords.map((lsi, lsiIndex) => (
                                                 <span key={lsiIndex} className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full">

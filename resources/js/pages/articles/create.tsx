@@ -20,62 +20,62 @@ export default function ArticlesCreate() {
 
     return (
         <AppShell>
-            <Head title="Create Article - SEO Content Generator" />
+            <Head title="Buat Artikel - Generator Konten SEO" />
             
             <div className="container mx-auto p-6 max-w-4xl">
                 {/* Header */}
                 <div className="mb-8">
                     <div className="flex items-center gap-3 mb-4">
                         <span className="text-4xl">✍️</span>
-                        <h1 className="text-3xl font-bold text-gray-900">Create New Article</h1>
+                        <h1 className="text-3xl font-bold text-gray-900">Buat Artikel Baru</h1>
                     </div>
                     <p className="text-lg text-gray-600">
-                        Start with basic information and we'll help you create SEO-optimized content
+                        Mulai dengan informasi dasar dan kami akan membantu Anda membuat konten SEO yang optimal
                     </p>
                 </div>
 
                 {/* Form */}
                 <Card>
                     <CardHeader>
-                        <CardTitle>Article Details</CardTitle>
+                        <CardTitle>Detail Artikel</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-6">
                             {/* Title */}
                             <div>
                                 <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
-                                    Article Title *
+                                    Judul Artikel *
                                 </label>
                                 <Input
                                     id="title"
                                     type="text"
                                     value={data.title}
                                     onChange={(e) => setData('title', e.target.value)}
-                                    placeholder="Enter a compelling article title..."
+                                    placeholder="Masukkan judul artikel yang menarik..."
                                     className="text-lg"
                                     required
                                 />
                                 <InputError message={errors.title} className="mt-2" />
                                 <p className="text-sm text-gray-500 mt-1">
-                                    Make it descriptive and keyword-rich for better SEO
+                                    Buatlah deskriptif dan kaya kata kunci untuk SEO yang lebih baik
                                 </p>
                             </div>
 
                             {/* Topic */}
                             <div>
                                 <label htmlFor="topic" className="block text-sm font-medium text-gray-700 mb-2">
-                                    Main Topic
+                                    Topik Utama
                                 </label>
                                 <Input
                                     id="topic"
                                     type="text"
                                     value={data.topic}
                                     onChange={(e) => setData('topic', e.target.value)}
-                                    placeholder="What's the main topic or focus keyword?"
+                                    placeholder="Apa topik utama atau kata kunci fokus?"
                                 />
                                 <InputError message={errors.topic} className="mt-2" />
                                 <p className="text-sm text-gray-500 mt-1">
-                                    This helps us generate relevant keywords and optimize your content
+                                    Ini membantu kami menghasilkan kata kunci relevan dan mengoptimalkan konten Anda
                                 </p>
                             </div>
 
@@ -90,9 +90,9 @@ export default function ArticlesCreate() {
                                     onChange={(e) => setData('status', e.target.value)}
                                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                                 >
-                                    <option value="draft">Draft</option>
-                                    <option value="published">Published</option>
-                                    <option value="archived">Archived</option>
+                                    <option value="draft">Draf</option>
+                                    <option value="published">Dipublikasi</option>
+                                    <option value="archived">Diarsipkan</option>
                                 </select>
                                 <InputError message={errors.status} className="mt-2" />
                             </div>
@@ -104,7 +104,7 @@ export default function ArticlesCreate() {
                                     variant="outline"
                                     onClick={() => window.history.back()}
                                 >
-                                    Cancel
+                                    Batal
                                 </Button>
                                 
                                 <Button
@@ -115,10 +115,10 @@ export default function ArticlesCreate() {
                                     {processing ? (
                                         <span className="flex items-center gap-2">
                                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                            Creating...
+                                            Membuat...
                                         </span>
                                     ) : (
-                                        '📄 Create Article'
+                                        '📄 Buat Artikel'
                                     )}
                                 </Button>
                             </div>
@@ -131,7 +131,7 @@ export default function ArticlesCreate() {
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
                             <span>🚀</span>
-                            What happens next?
+                            Apa yang akan terjadi selanjutnya?
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -139,40 +139,40 @@ export default function ArticlesCreate() {
                             <div>
                                 <h4 className="font-semibold mb-2 flex items-center gap-2">
                                     <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">1</span>
-                                    Keyword Research
+                                    Riset Kata Kunci
                                 </h4>
                                 <p className="text-sm text-gray-600">
-                                    Generate keyword ideas with search volume, competition analysis, and LSI keywords
+                                    Buat ide kata kunci dengan volume pencarian, analisis kompetisi, dan LSI keywords
                                 </p>
                             </div>
                             
                             <div>
                                 <h4 className="font-semibold mb-2 flex items-center gap-2">
                                     <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                                    AI Outline Generation
+                                    Pembuatan Kerangka AI
                                 </h4>
                                 <p className="text-sm text-gray-600">
-                                    Create optimized article structures based on your selected keywords
+                                    Buat struktur artikel yang dioptimalkan berdasarkan kata kunci yang dipilih
                                 </p>
                             </div>
                             
                             <div>
                                 <h4 className="font-semibold mb-2 flex items-center gap-2">
                                     <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">3</span>
-                                    Content Editor
+                                    Editor Konten
                                 </h4>
                                 <p className="text-sm text-gray-600">
-                                    Write with AI assistance, real-time SEO analysis, and optimization suggestions
+                                    Tulis dengan bantuan AI, analisis SEO real-time, dan saran optimasi
                                 </p>
                             </div>
                             
                             <div>
                                 <h4 className="font-semibold mb-2 flex items-center gap-2">
                                     <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">4</span>
-                                    Export & Publish
+                                    Ekspor & Publikasi
                                 </h4>
                                 <p className="text-sm text-gray-600">
-                                    Get HTML, meta descriptions, schema markup, and landing page generation
+                                    Dapatkan HTML, meta description, markup schema, dan pembuatan landing page
                                 </p>
                             </div>
                         </div>

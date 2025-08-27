@@ -46,7 +46,7 @@ export default function ArticlesEdit({ article }: Props) {
 
     return (
         <AppShell>
-            <Head title={`Edit: ${article.title} - SEO Content Generator`} />
+            <Head title={`Edit: ${article.title} - Generator Konten SEO`} />
             
             <div className="container mx-auto p-6 max-w-6xl">
                 {/* Header */}
@@ -54,16 +54,16 @@ export default function ArticlesEdit({ article }: Props) {
                     <div>
                         <div className="flex items-center gap-3 mb-2">
                             <span className="text-3xl">✏️</span>
-                            <h1 className="text-3xl font-bold text-gray-900">Edit Article</h1>
+                            <h1 className="text-3xl font-bold text-gray-900">Edit Artikel</h1>
                         </div>
                         <p className="text-gray-600">
-                            Optimize your content with real-time SEO analysis
+                            Optimalkan konten Anda dengan analisis SEO real-time
                         </p>
                     </div>
                     
                     <div className="flex items-center gap-3">
                         <div className={`px-4 py-2 rounded-lg ${getSeoScoreColor(seoScore)}`}>
-                            <span className="font-semibold">SEO Score: {seoScore}/100</span>
+                            <span className="font-semibold">Skor SEO: {seoScore}/100</span>
                         </div>
                     </div>
                 </div>
@@ -75,19 +75,19 @@ export default function ArticlesEdit({ article }: Props) {
                             {/* Basic Info */}
                             <Card>
                                 <CardHeader>
-                                    <CardTitle>📄 Article Information</CardTitle>
+                                    <CardTitle>📄 Informasi Artikel</CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div>
                                         <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-2">
-                                            Title *
+                                            Judul *
                                         </label>
                                         <Input
                                             id="title"
                                             value={data.title}
                                             onChange={(e) => setData('title', e.target.value)}
                                             className="text-lg"
-                                            placeholder="Enter article title..."
+                                            placeholder="Masukkan judul artikel..."
                                             required
                                         />
                                         <InputError message={errors.title} className="mt-2" />
@@ -95,13 +95,13 @@ export default function ArticlesEdit({ article }: Props) {
 
                                     <div>
                                         <label htmlFor="topic" className="block text-sm font-medium text-gray-700 mb-2">
-                                            Main Topic/Keyword
+                                            Topik Utama/Kata Kunci
                                         </label>
                                         <Input
                                             id="topic"
                                             value={data.topic}
                                             onChange={(e) => setData('topic', e.target.value)}
-                                            placeholder="Main focus keyword..."
+                                            placeholder="Kata kunci fokus utama..."
                                         />
                                         <InputError message={errors.topic} className="mt-2" />
                                     </div>
@@ -116,9 +116,9 @@ export default function ArticlesEdit({ article }: Props) {
                                             onChange={(e) => setData('status', e.target.value)}
                                             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                                         >
-                                            <option value="draft">Draft</option>
-                                            <option value="published">Published</option>
-                                            <option value="archived">Archived</option>
+                                            <option value="draft">Draf</option>
+                                            <option value="published">Dipublikasi</option>
+                                            <option value="archived">Diarsipkan</option>
                                         </select>
                                     </div>
                                 </CardContent>
@@ -128,7 +128,7 @@ export default function ArticlesEdit({ article }: Props) {
                             <Card>
                                 <CardHeader>
                                     <div className="flex items-center justify-between">
-                                        <CardTitle>📝 Content Editor</CardTitle>
+                                        <CardTitle>📝 Editor Konten</CardTitle>
                                         <div className="flex gap-2">
                                             <Button
                                                 type="button"
@@ -155,12 +155,12 @@ export default function ArticlesEdit({ article }: Props) {
                                             <textarea
                                                 value={data.content}
                                                 onChange={(e) => setData('content', e.target.value)}
-                                                placeholder="Start writing your article content..."
+                                                placeholder="Mulai menulis konten artikel Anda..."
                                                 className="w-full h-96 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
                                             />
                                             <InputError message={errors.content} className="mt-2" />
                                             <p className="text-sm text-gray-500 mt-2">
-                                                Word count: {data.content.split(' ').filter(w => w.length > 0).length}
+                                                Jumlah kata: {data.content.split(' ').filter(w => w.length > 0).length}
                                             </p>
                                         </div>
                                     ) : (
@@ -168,7 +168,7 @@ export default function ArticlesEdit({ article }: Props) {
                                             {data.content ? (
                                                 <div dangerouslySetInnerHTML={{ __html: data.content.replace(/\n/g, '<br>') }} />
                                             ) : (
-                                                <p className="text-gray-500 italic">No content to preview</p>
+                                                <p className="text-gray-500 italic">Tidak ada konten untuk preview</p>
                                             )}
                                         </div>
                                     )}
@@ -182,14 +182,14 @@ export default function ArticlesEdit({ article }: Props) {
                                     variant="outline"
                                     onClick={() => window.history.back()}
                                 >
-                                    Cancel
+                                    Batal
                                 </Button>
                                 <Button
                                     type="submit"
                                     disabled={processing}
                                     className="bg-blue-600 hover:bg-blue-700"
                                 >
-                                    {processing ? '💾 Saving...' : '💾 Save Article'}
+                                    {processing ? '💾 Menyimpan...' : '💾 Simpan Artikel'}
                                 </Button>
                             </div>
                         </div>
@@ -206,14 +206,14 @@ export default function ArticlesEdit({ article }: Props) {
                                         <textarea
                                             value={data.meta_description}
                                             onChange={(e) => setData('meta_description', e.target.value)}
-                                            placeholder="Write a compelling meta description..."
+                                            placeholder="Tulis meta description yang menarik..."
                                             className="w-full h-24 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                             maxLength={160}
                                         />
                                         <div className="flex justify-between items-center mt-2 text-sm text-gray-500">
-                                            <span>{data.meta_description.length}/160 characters</span>
+                                            <span>{data.meta_description.length}/160 karakter</span>
                                             <Button type="button" variant="outline" size="sm">
-                                                🤖 Generate with AI
+                                                🤖 Buat dengan AI
                                             </Button>
                                         </div>
                                     </div>
@@ -224,22 +224,22 @@ export default function ArticlesEdit({ article }: Props) {
                             <Card>
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
-                                        📊 SEO Checklist
+                                        📊 Daftar Periksa SEO
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <div className="space-y-3">
                                         <div className="flex items-center gap-3">
                                             <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs font-bold">✓</span>
-                                            <span className="text-sm">Title contains keyword</span>
+                                            <span className="text-sm">Judul mengandung kata kunci</span>
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <span className="w-5 h-5 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-xs font-bold">!</span>
-                                            <span className="text-sm">Content length (300+ words)</span>
+                                            <span className="text-sm">Panjang konten (300+ kata)</span>
                                         </div>
                                         <div className="flex items-center gap-3">
                                             <span className="w-5 h-5 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xs font-bold">✗</span>
-                                            <span className="text-sm">Meta description added</span>
+                                            <span className="text-sm">Meta description ditambahkan</span>
                                         </div>
                                     </div>
                                 </CardContent>

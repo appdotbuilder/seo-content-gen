@@ -56,19 +56,39 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
         }
     };
 
+    const getCompetitionText = (competition: string) => {
+        switch (competition) {
+            case 'low': return 'rendah';
+            case 'medium': return 'sedang';
+            case 'high': return 'tinggi';
+            default: return competition;
+        }
+    };
+
+    const getContentTypeText = (contentType: string) => {
+        switch (contentType) {
+            case 'blog post': return 'artikel blog';
+            case 'tutorial': return 'tutorial';
+            case 'guide': return 'panduan';
+            case 'list': return 'daftar';
+            case 'review': return 'ulasan';
+            default: return contentType;
+        }
+    };
+
     return (
         <AppShell>
-            <Head title="SEO Content Generator" />
+            <Head title="Generator Konten SEO" />
             
             <div className="container mx-auto p-6 max-w-6xl">
                 {/* Header */}
                 <div className="mb-8">
                     <div className="flex items-center gap-3 mb-4">
                         <span className="text-4xl">📝</span>
-                        <h1 className="text-3xl font-bold text-gray-900">SEO Content Generator</h1>
+                        <h1 className="text-3xl font-bold text-gray-900">Generator Konten SEO</h1>
                     </div>
                     <p className="text-lg text-gray-600">
-                        Create high-ranking content with AI-powered keyword research and optimization
+                        Buat konten berperingkat tinggi dengan riset kata kunci dan optimasi bertenaga AI
                     </p>
                 </div>
 
@@ -79,7 +99,7 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                                 currentStep === 'topic' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'
                             }`}>1</div>
-                            <span className="font-medium">Topic</span>
+                            <span className="font-medium">Topik</span>
                         </div>
                         
                         <div className="flex-1 h-0.5 bg-gray-200 mx-4"></div>
@@ -88,7 +108,7 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                                 currentStep === 'keywords' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'
                             }`}>2</div>
-                            <span className="font-medium">Keywords</span>
+                            <span className="font-medium">Kata Kunci</span>
                         </div>
                         
                         <div className="flex-1 h-0.5 bg-gray-200 mx-4"></div>
@@ -97,7 +117,7 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                                 currentStep === 'outline' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'
                             }`}>3</div>
-                            <span className="font-medium">Outline</span>
+                            <span className="font-medium">Kerangka</span>
                         </div>
                         
                         <div className="flex-1 h-0.5 bg-gray-200 mx-4"></div>
@@ -106,7 +126,7 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                                 currentStep === 'content' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'
                             }`}>4</div>
-                            <span className="font-medium">Content</span>
+                            <span className="font-medium">Konten</span>
                         </div>
                     </div>
                 </div>
@@ -117,26 +137,26 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <span>🎯</span>
-                                Enter Your Topic
+                                Masukkan Topik Anda
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
                             <form onSubmit={handleGenerateKeywords} className="space-y-4">
                                 <div>
                                     <label htmlFor="topic" className="block text-sm font-medium text-gray-700 mb-2">
-                                        What topic would you like to create content about?
+                                        Topik apa yang ingin Anda buat kontennya?
                                     </label>
                                     <Input
                                         id="topic"
                                         type="text"
                                         value={currentTopic}
                                         onChange={(e) => setCurrentTopic(e.target.value)}
-                                        placeholder="e.g., digital marketing, healthy recipes, home fitness..."
+                                        placeholder="misal: digital marketing, resep sehat, fitness rumahan..."
                                         className="text-lg"
                                         required
                                     />
                                     <p className="text-sm text-gray-500 mt-1">
-                                        Be specific for better keyword suggestions
+                                        Buatlah spesifik untuk saran kata kunci yang lebih baik
                                     </p>
                                 </div>
                                 <Button 
@@ -147,11 +167,11 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                                     {isGenerating ? (
                                         <span className="flex items-center gap-2">
                                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                            Generating Keywords...
+                                            Membuat Kata Kunci...
                                         </span>
                                     ) : (
                                         <span className="flex items-center gap-2">
-                                            🔍 Generate Keywords
+                                            🔍 Buat Kata Kunci
                                         </span>
                                     )}
                                 </Button>
@@ -166,8 +186,8 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <span>🔍</span>
-                                Keyword Research Results
-                                <span className="text-sm font-normal text-gray-500">({keywords.length} keywords found)</span>
+                                Hasil Riset Kata Kunci
+                                <span className="text-sm font-normal text-gray-500">({keywords.length} kata kunci ditemukan)</span>
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
@@ -181,19 +201,19 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                                                 </h3>
                                                 <div className="flex items-center gap-4 text-sm text-gray-600">
                                                     <span className="flex items-center gap-1">
-                                                        📊 {keyword.search_volume.toLocaleString()} searches/month
+                                                        📊 {keyword.search_volume.toLocaleString()} pencarian/bulan
                                                     </span>
                                                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCompetitionColor(keyword.competition)}`}>
-                                                        {keyword.competition} competition
+                                                        kompetisi {getCompetitionText(keyword.competition)}
                                                     </span>
                                                     <span className="flex items-center gap-1">
-                                                        📄 {keyword.content_type}
+                                                        📄 {getContentTypeText(keyword.content_type)}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <Button variant="outline" size="sm">
-                                                    Select
+                                                    Pilih
                                                 </Button>
                                                 <Button variant="ghost" size="sm">
                                                     ✓
@@ -203,7 +223,7 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                                         
                                         {keyword.lsi_keywords.length > 0 && (
                                             <div>
-                                                <h4 className="text-sm font-medium text-gray-700 mb-2">LSI Keywords:</h4>
+                                                <h4 className="text-sm font-medium text-gray-700 mb-2">Kata Kunci LSI:</h4>
                                                 <div className="flex flex-wrap gap-2">
                                                     {keyword.lsi_keywords.map((lsi, lsiIndex) => (
                                                         <span key={lsiIndex} className="px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-full">
@@ -225,10 +245,10 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                                         setCurrentTopic('');
                                     }}
                                 >
-                                    ← Back to Topic
+                                    ← Kembali ke Topik
                                 </Button>
                                 <Button className="bg-blue-600 hover:bg-blue-700">
-                                    Generate Outline →
+                                    Buat Kerangka →
                                 </Button>
                             </div>
                         </CardContent>
@@ -242,29 +262,29 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <span>💡</span>
-                                    How It Works
+                                    Cara Kerja
                                 </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div className="flex items-start gap-3">
                                     <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-semibold mt-0.5">1</div>
                                     <div>
-                                        <h4 className="font-medium">Enter Your Topic</h4>
-                                        <p className="text-sm text-gray-600">Start with any topic you want to create content about</p>
+                                        <h4 className="font-medium">Masukkan Topik Anda</h4>
+                                        <p className="text-sm text-gray-600">Mulai dengan topik apa pun yang ingin Anda buat kontennya</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
                                     <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-semibold mt-0.5">2</div>
                                     <div>
-                                        <h4 className="font-medium">Get Keyword Ideas</h4>
-                                        <p className="text-sm text-gray-600">AI generates relevant keywords with search volume and competition data</p>
+                                        <h4 className="font-medium">Dapatkan Ide Kata Kunci</h4>
+                                        <p className="text-sm text-gray-600">AI menghasilkan kata kunci relevan dengan data volume pencarian dan kompetisi</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
                                     <div className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-semibold mt-0.5">3</div>
                                     <div>
-                                        <h4 className="font-medium">Create Optimized Content</h4>
-                                        <p className="text-sm text-gray-600">Generate outlines, write content, and get real-time SEO analysis</p>
+                                        <h4 className="font-medium">Buat Konten Optimal</h4>
+                                        <p className="text-sm text-gray-600">Buat kerangka, tulis konten, dan dapatkan analisis SEO real-time</p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -274,18 +294,18 @@ export default function SeoIndex({ keywords = [], topic = '' }: Props) {
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <span>🎯</span>
-                                    Topic Examples
+                                    Contoh Topik
                                 </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-2">
                                     {[
-                                        'Email marketing automation',
-                                        'Healthy meal prep ideas',
-                                        'Home workout routines',
-                                        'Social media strategy',
-                                        'Personal finance tips',
-                                        'Digital photography basics'
+                                        'Otomatisasi email marketing',
+                                        'Ide meal prep sehat',
+                                        'Rutinitas workout rumahan',
+                                        'Strategi media sosial',
+                                        'Tips keuangan pribadi',
+                                        'Dasar fotografi digital'
                                     ].map((example, index) => (
                                         <button
                                             key={index}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +26,7 @@
                     @if($whatsappLink)
                         <a href="{{ $whatsappLink }}" target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600 transition duration-300 flex items-center justify-center gap-2">
                             <i class="fab fa-whatsapp"></i>
-                            Contact via WhatsApp
+                            Hubungi via WhatsApp
                         </a>
                     @endif
                 </div>
@@ -48,8 +48,8 @@
     <!-- Call to Action Section -->
     <section class="bg-gray-900 text-white py-16">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-            <p class="text-xl mb-8">Take action today and see the results you've been looking for.</p>
+            <h2 class="text-3xl font-bold mb-4">Siap untuk Memulai?</h2>
+            <p class="text-xl mb-8">Ambil tindakan hari ini dan lihat hasil yang Anda cari.</p>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 @if($ctaLink)
@@ -61,7 +61,7 @@
                 @if($whatsappLink)
                     <a href="{{ $whatsappLink }}" target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-600 transition duration-300 flex items-center justify-center gap-2">
                         <i class="fab fa-whatsapp"></i>
-                        Get in Touch
+                        Hubungi Kami
                     </a>
                 @endif
             </div>
@@ -71,7 +71,7 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-300 py-8">
         <div class="container mx-auto px-6 text-center">
-            <p>&copy; {{ date('Y') }} All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} Semua hak dilindungi.</p>
         </div>
     </footer>
 </body>

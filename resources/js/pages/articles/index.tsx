@@ -38,6 +38,15 @@ export default function ArticlesIndex({ articles }: Props) {
         }
     };
 
+    const getStatusText = (status: string) => {
+        switch (status) {
+            case 'published': return 'Dipublikasi';
+            case 'draft': return 'Draf';
+            case 'archived': return 'Diarsipkan';
+            default: return status;
+        }
+    };
+
     const getSeoScoreColor = (score: number) => {
         if (score >= 80) return 'text-green-600';
         if (score >= 60) return 'text-yellow-600';
@@ -46,7 +55,7 @@ export default function ArticlesIndex({ articles }: Props) {
 
     return (
         <AppShell>
-            <Head title="My Articles - SEO Content Generator" />
+            <Head title="Artikel Saya - Generator Konten SEO" />
             
             <div className="container mx-auto p-6 max-w-6xl">
                 {/* Header */}
@@ -54,22 +63,22 @@ export default function ArticlesIndex({ articles }: Props) {
                     <div>
                         <div className="flex items-center gap-3 mb-2">
                             <span className="text-3xl">📚</span>
-                            <h1 className="text-3xl font-bold text-gray-900">My Articles</h1>
+                            <h1 className="text-3xl font-bold text-gray-900">Artikel Saya</h1>
                         </div>
                         <p className="text-gray-600">
-                            Manage your SEO-optimized content and track performance
+                            Kelola konten SEO Anda dan pantau performanya
                         </p>
                     </div>
                     
                     <div className="flex items-center gap-3">
                         <Link href={route('seo.index')}>
                             <Button variant="outline" className="flex items-center gap-2">
-                                🔍 Keyword Research
+                                🔍 Riset Kata Kunci
                             </Button>
                         </Link>
                         <Link href={route('articles.create')}>
                             <Button className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2">
-                                ✍️ New Article
+                                ✍️ Artikel Baru
                             </Button>
                         </Link>
                     </div>
@@ -85,7 +94,7 @@ export default function ArticlesIndex({ articles }: Props) {
                                 </div>
                                 <div>
                                     <p className="text-2xl font-bold">{articles.total}</p>
-                                    <p className="text-sm text-gray-600">Total Articles</p>
+                                    <p className="text-sm text-gray-600">Total Artikel</p>
                                 </div>
                             </div>
                         </CardContent>
@@ -101,7 +110,7 @@ export default function ArticlesIndex({ articles }: Props) {
                                     <p className="text-2xl font-bold">
                                         {articles.data.filter(a => a.status === 'published').length}
                                     </p>
-                                    <p className="text-sm text-gray-600">Published</p>
+                                    <p className="text-sm text-gray-600">Dipublikasi</p>
                                 </div>
                             </div>
                         </CardContent>
@@ -117,7 +126,7 @@ export default function ArticlesIndex({ articles }: Props) {
                                     <p className="text-2xl font-bold">
                                         {articles.data.filter(a => a.status === 'draft').length}
                                     </p>
-                                    <p className="text-sm text-gray-600">Drafts</p>
+                                    <p className="text-sm text-gray-600">Draf</p>
                                 </div>
                             </div>
                         </CardContent>
@@ -136,7 +145,7 @@ export default function ArticlesIndex({ articles }: Props) {
                                             : 0
                                         }
                                     </p>
-                                    <p className="text-sm text-gray-600">Avg SEO Score</p>
+                                    <p className="text-sm text-gray-600">Rata-rata Skor SEO</p>
                                 </div>
                             </div>
                         </CardContent>
@@ -163,7 +172,7 @@ export default function ArticlesIndex({ articles }: Props) {
                                                     </h3>
                                                     {article.topic && (
                                                         <p className="text-gray-600 mb-2">
-                                                            Topic: {article.topic}
+                                                            Topik: {article.topic}
                                                         </p>
                                                     )}
                                                 </div>
@@ -171,23 +180,23 @@ export default function ArticlesIndex({ articles }: Props) {
                                             
                                             <div className="flex items-center gap-4 text-sm text-gray-500">
                                                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(article.status)}`}>
-                                                    {article.status}
+                                                    {getStatusText(article.status)}
                                                 </span>
                                                 
                                                 <span className="flex items-center gap-1">
-                                                    📊 SEO Score: 
+                                                    📊 Skor SEO: 
                                                     <span className={`font-semibold ${getSeoScoreColor(article.seo_score)}`}>
                                                         {article.seo_score}/100
                                                     </span>
                                                 </span>
                                                 
                                                 <span>
-                                                    📅 {new Date(article.created_at).toLocaleDateString()}
+                                                    📅 {new Date(article.created_at).toLocaleDateString('id-ID')}
                                                 </span>
                                                 
                                                 {article.updated_at !== article.created_at && (
                                                     <span>
-                                                        ✏️ Updated {new Date(article.updated_at).toLocaleDateString()}
+                                                        ✏️ Diperbarui {new Date(article.updated_at).toLocaleDateString('id-ID')}
                                                     </span>
                                                 )}
                                             </div>
@@ -201,7 +210,7 @@ export default function ArticlesIndex({ articles }: Props) {
                                             </Link>
                                             <Link href={route('articles.show', article.id)}>
                                                 <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                                                    View
+                                                    Lihat
                                                 </Button>
                                             </Link>
                                         </div>
@@ -215,21 +224,21 @@ export default function ArticlesIndex({ articles }: Props) {
                         <CardContent>
                             <div className="text-6xl mb-4">📝</div>
                             <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                                No articles yet
+                                Belum ada artikel
                             </h3>
                             <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                                Start creating SEO-optimized content with our AI-powered tools. 
-                                Research keywords, generate outlines, and write high-ranking articles.
+                                Mulai membuat konten SEO dengan tools bertenaga AI kami. 
+                                Riset kata kunci, buat kerangka, dan tulis artikel berperingkat tinggi.
                             </p>
                             <div className="flex items-center justify-center gap-3">
                                 <Link href={route('seo.index')}>
                                     <Button variant="outline">
-                                        🔍 Start with Keywords
+                                        🔍 Mulai dengan Kata Kunci
                                     </Button>
                                 </Link>
                                 <Link href={route('articles.create')}>
                                     <Button className="bg-blue-600 hover:bg-blue-700">
-                                        ✍️ Create Article
+                                        ✍️ Buat Artikel
                                     </Button>
                                 </Link>
                             </div>

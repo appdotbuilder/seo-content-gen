@@ -16,16 +16,16 @@ class SeoService
         // For now, we'll simulate keyword data
         
         $baseKeywords = [
-            'how to ' . $topic,
-            'best ' . $topic,
-            $topic . ' guide',
-            $topic . ' tips',
-            $topic . ' tutorial',
-            'ultimate ' . $topic,
-            $topic . ' for beginners',
-            'advanced ' . $topic,
-            $topic . ' techniques',
-            $topic . ' strategies'
+            'cara ' . $topic,
+            'tips ' . $topic,
+            'panduan ' . $topic,
+            'tutorial ' . $topic,
+            'belajar ' . $topic,
+            $topic . ' terbaik',
+            $topic . ' untuk pemula',
+            $topic . ' lengkap',
+            'strategi ' . $topic,
+            'teknik ' . $topic
         ];
 
         $keywords = [];
@@ -53,16 +53,16 @@ class SeoService
     public function generateLsiKeywords(string $keyword): array
     {
         $lsiSuffixes = [
-            'methods',
-            'approach',
-            'process',
-            'system',
+            'metode',
+            'pendekatan',
+            'proses',
+            'sistem',
             'framework',
             'tools',
-            'resources',
-            'examples',
-            'benefits',
-            'advantages'
+            'sumber daya',
+            'contoh',
+            'manfaat',
+            'keuntungan'
         ];
 
         $lsiKeywords = [];
@@ -93,48 +93,48 @@ class SeoService
             [
                 'type' => 'heading',
                 'level' => 2,
-                'content' => 'Introduction',
+                'content' => 'Pengantar',
                 'expanded' => false
             ],
             [
                 'type' => 'paragraph',
-                'content' => 'Brief introduction about ' . $keyword,
+                'content' => 'Pengenalan singkat tentang ' . $keyword,
                 'expanded' => false
             ],
             [
                 'type' => 'heading',
                 'level' => 2,
-                'content' => 'What is ' . ucfirst($keyword) . '?',
+                'content' => 'Apa itu ' . ucfirst($keyword) . '?',
                 'expanded' => false
             ],
             [
                 'type' => 'heading',
                 'level' => 2,
-                'content' => 'Benefits of ' . ucfirst($keyword),
+                'content' => 'Manfaat ' . ucfirst($keyword),
                 'expanded' => false
             ],
             [
                 'type' => 'heading',
                 'level' => 2,
-                'content' => 'Step-by-Step Guide',
+                'content' => 'Panduan Langkah demi Langkah',
                 'expanded' => false
             ],
             [
                 'type' => 'heading',
                 'level' => 2,
-                'content' => 'Best Practices',
+                'content' => 'Praktik Terbaik',
                 'expanded' => false
             ],
             [
                 'type' => 'heading',
                 'level' => 2,
-                'content' => 'Common Mistakes to Avoid',
+                'content' => 'Kesalahan Umum yang Harus Dihindari',
                 'expanded' => false
             ],
             [
                 'type' => 'heading',
                 'level' => 2,
-                'content' => 'Conclusion',
+                'content' => 'Kesimpulan',
                 'expanded' => false
             ]
         ];
@@ -156,9 +156,9 @@ class SeoService
         $wordCount = str_word_count($content);
         if ($wordCount >= 300) {
             $score += 20;
-            $checklist[] = ['item' => 'Content length (300+ words)', 'passed' => true];
+            $checklist[] = ['item' => 'Panjang konten (300+ kata)', 'passed' => true];
         } else {
-            $checklist[] = ['item' => 'Content length (300+ words)', 'passed' => false];
+            $checklist[] = ['item' => 'Panjang konten (300+ kata)', 'passed' => false];
         }
 
         // Keyword density check
@@ -168,9 +168,9 @@ class SeoService
             
             if ($density >= 1 && $density <= 3) {
                 $score += 20;
-                $checklist[] = ['item' => 'Keyword density (1-3%)', 'passed' => true];
+                $checklist[] = ['item' => 'Kepadatan kata kunci (1-3%)', 'passed' => true];
             } else {
-                $checklist[] = ['item' => 'Keyword density (1-3%)', 'passed' => false];
+                $checklist[] = ['item' => 'Kepadatan kata kunci (1-3%)', 'passed' => false];
             }
         }
 
@@ -178,9 +178,9 @@ class SeoService
         $headingCount = preg_match_all('/<h[1-6]/', $content);
         if ($headingCount >= 3) {
             $score += 15;
-            $checklist[] = ['item' => 'Proper heading structure', 'passed' => true];
+            $checklist[] = ['item' => 'Struktur heading yang tepat', 'passed' => true];
         } else {
-            $checklist[] = ['item' => 'Proper heading structure', 'passed' => false];
+            $checklist[] = ['item' => 'Struktur heading yang tepat', 'passed' => false];
         }
 
         // Image alt text check
@@ -189,23 +189,23 @@ class SeoService
         
         if ($totalImages === 0 || $imagesWithAlt === $totalImages) {
             $score += 15;
-            $checklist[] = ['item' => 'Images have alt text', 'passed' => true];
+            $checklist[] = ['item' => 'Gambar memiliki teks alt', 'passed' => true];
         } else {
-            $checklist[] = ['item' => 'Images have alt text', 'passed' => false];
+            $checklist[] = ['item' => 'Gambar memiliki teks alt', 'passed' => false];
         }
 
         // Internal/external links check
         $linkCount = preg_match_all('/<a\s+[^>]*href=["\'][^"\']*["\'][^>]*>/', $content);
         if ($linkCount >= 2) {
             $score += 10;
-            $checklist[] = ['item' => 'Contains links (2+)', 'passed' => true];
+            $checklist[] = ['item' => 'Berisi tautan (2+)', 'passed' => true];
         } else {
-            $checklist[] = ['item' => 'Contains links (2+)', 'passed' => false];
+            $checklist[] = ['item' => 'Berisi tautan (2+)', 'passed' => false];
         }
 
         // Meta description check (passed separately)
         $score += 20; // Assume meta description is provided
-        $checklist[] = ['item' => 'Meta description provided', 'passed' => true];
+        $checklist[] = ['item' => 'Meta description tersedia', 'passed' => true];
 
         return [
             'score' => min($score, 100),
@@ -226,12 +226,12 @@ class SeoService
         $contentSnippet = substr(strip_tags($content), 0, 100);
         
         if (!empty($keyword)) {
-            $descriptions[] = "Learn everything about {$keyword} in this comprehensive guide. {$contentSnippet}...";
-            $descriptions[] = "Discover the best {$keyword} techniques and strategies. {$contentSnippet}...";
-            $descriptions[] = "Master {$keyword} with our step-by-step guide. {$contentSnippet}...";
+            $descriptions[] = "Pelajari semua tentang {$keyword} dalam panduan lengkap ini. {$contentSnippet}...";
+            $descriptions[] = "Temukan teknik dan strategi {$keyword} terbaik. {$contentSnippet}...";
+            $descriptions[] = "Kuasai {$keyword} dengan panduan langkah demi langkah kami. {$contentSnippet}...";
         } else {
             $descriptions[] = substr($contentSnippet, 0, 150) . '...';
-            $descriptions[] = "Comprehensive guide covering all aspects. {$contentSnippet}...";
+            $descriptions[] = "Panduan lengkap yang mencakup semua aspek. {$contentSnippet}...";
         }
 
         return array_map(function($desc) {
@@ -277,7 +277,7 @@ class SeoService
             'description' => $metaDescription ?: substr(strip_tags($content), 0, 160),
             'author' => [
                 '@type' => 'Person',
-                'name' => 'Author Name'
+                'name' => 'Nama Penulis'
             ],
             'datePublished' => now()->toISOString(),
             'dateModified' => now()->toISOString(),
@@ -295,12 +295,12 @@ class SeoService
      */
     public function generateLandingPage(array $article, array $options = []): string
     {
-        $title = $article['title'] ?? 'Article Title';
+        $title = $article['title'] ?? 'Judul Artikel';
         $content = $article['content'] ?? '';
         $metaDescription = $article['meta_description'] ?? '';
         $whatsappLink = $options['whatsapp_link'] ?? '';
         $ctaLink = $options['cta_link'] ?? '';
-        $ctaText = $options['cta_text'] ?? 'Get Started';
+        $ctaText = $options['cta_text'] ?? 'Mulai Sekarang';
 
         return view('landing-page', compact(
             'title',
